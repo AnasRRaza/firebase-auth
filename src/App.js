@@ -1,25 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
+import { useUserContext } from './context/userContext';
+import Auth from './routes/Auth';
+import UnAuth from './routes/unAuth';
 
 function App() {
+
+  const { error, loading, user } = useUserContext();
+  console.log(error);
+  console.log(user);
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='app'>
+      {error && <p className='error'>{error}</p>}
+      {loading ? <h2>Loading...</h2> : <> {user ? <UnAuth /> : <Auth />} </>}
     </div>
-  );
+  )
 }
 
 export default App;
